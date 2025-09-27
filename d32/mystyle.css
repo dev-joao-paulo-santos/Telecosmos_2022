@@ -1,0 +1,95 @@
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:12px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:12px;
+  font-weight:normal;overflow:hidden;padding:5px 5px;word-break:normal;}
+.tg .tg-x028{border-color:#00000000;color:#ffffff;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-mk6l{border-color:#00000000;color:#ffffff;text-align:left;vertical-align:top}
+.tg .tg-u3q6{border-color:#00000000;color:#ffffff;font-weight:bold;text-align:left;vertical-align:top}
+body{
+  background: linear-gradient(to right, #000000, #000000,  #0000ff);
+}
+.layout {
+    position:absolute;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+  }
+  .layout-right {
+    height:100%;
+    width:300px;
+    display:flex;
+    
+    flex-direction: column;
+    pointer-events:all;
+    justify-content:space-evenly;
+  }
+  .layout-left {
+    height:100%;
+    width:100%;
+  }
+  #infoi {
+    color:white;
+    background-color: transparent;
+    height: 75%;
+    width: 280px;
+    border-radius:10px;
+    overflow: auto;
+  }
+  .ambient-selector {
+    display:flex;
+    flex-direction: row;
+    justify-content:flex-end;
+    padding:2px;
+    pointer-events: all;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    position: absolute;
+    top:50px;
+    left:50px;
+    transition: 0.5s;
+  }
+  .ambient-selector:hover {
+    width:150px;
+
+  }
+  .ambient-active {
+    position:absolute;
+    width:50px;
+    height:50px;
+    left:2px;
+    background-color: black;
+    border-radius: 50px;
+    z-index: 1;
+    transition: 0.5s;
+  }
+  .ambient-active:hover{
+    background-color: rgb(40, 63, 165);
+    box-shadow: 0 0 60px #0000ff;   
+  }
+  .ambient-button {
+    width:50px;
+    height:50px;
+    background-color: black;
+    border-radius: 50px;
+  }
+  .ambient-button:hover {
+    background-color: rgb(40, 63, 165);
+    
+    box-shadow: 0 0 60px #0000ff;
+  }
+  #button1{
+    position:absolute;
+    transition:0.5s;
+    left:2px;
+  }
+  .ambient-selector:hover > #button1{
+    left: 52px;
+    
+  }
+  body { margin: 0; }
+  canvas { width: 100%; height: 100% }

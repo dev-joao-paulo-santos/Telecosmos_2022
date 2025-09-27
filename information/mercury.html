@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="background"></canvas>
+    <div class="content">
+        <h1>Mercúrio</h1>
+        <br><br><br>
+        <p> Este é o primeiro planeta do Sistema Solar. É o menor entre eles, com cerca de 3474,8 km de diâmetro 
+            (lembrando que existe a classificação de planetas-anões, a qual Mercúrio não pertence, pois seu tamanho,
+             mesmo pequeno, ainda entra na categoria de planeta). É o planeta mais próximo do Sol, distando a quase 58 milhões de km da estrela, 
+             além de ser o mais rápido em movimento de translação, levando apenas 88 dias para dar uma volta ao redor do Sol, enquanto sua rotação é incrivelmente lenta, com 180 mil km/h, equivalendo a 173 dias aqui na Terra.</p>
+        <p> Mercúrio pode ser o planeta mais próximo do Sol, mas está longe de ser o mais quente. Seu eixo de rotação é perpendicular ao seu plano de órbita, ou seja, não há inclinação nenhuma em seu eixo.
+             Por isso, não existem estações do ano e existem áreas onde não há recebimento da luz solar. Sua pressão atmosférica é muito fraca, com aproximadamente um bilhão de vezes menor que a terrestre ao nível do mar.
+             A composição química da atmosfera é composta de hélio, neón e árgon. A alta temperatura provocada pela distância em relação ao Sol faz com que esses átomos fiquem dispersos pelo espaço, fazendo com que o planeta seja incapaz
+             de manter a média térmica, podendo variar entre -170°C e 430°C, além de fornecer uma proteção muito baixa contra choques de asteroides, o que faz dele o planeta com mais crateras em comparação aos outros.
+        </p>
+    </div>
+
+<style>
+* {
+font-family: 'Century Gothic';
+color: aliceblue;
+}
+
+    canvas {
+        position: fixed;
+    top: 0;
+    left: 0;
+    }
+    .content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        width: 50vw;
+    }
+</style>
+
+
+
+    <script type="importmap">
+        { "imports": {
+            "three": "./js/three.module.js",
+            "GLTFLoader": "./js/GLTFLoader.js",
+            "OrbitControls": "./js/OrbitControls.js"
+
+        }}
+    </script>
+    <script type="module">
+        import * as THREE from 'three'
+//import {OrbitControls} from 'OrbitControls'
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+const renderer = new THREE.WebGLRenderer({antialias: true, canvas: document.querySelector('#background')});
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setPixelRatio(window.devicePixelRatio)
+//document.body.appendChild( renderer.domElement );
+
+const txloader = new THREE.TextureLoader()
+
+const normal = txloader.load('./mercury/low/2k_mercury_normal.jpg')
+const diffuse = txloader.load('./mercury/low/2k_mercury.jpg')
+
+
+const geometry = new THREE.SphereGeometry( 1, 128, 128 );
+const material = new THREE.MeshStandardMaterial( { color: 0xffffff, map: diffuse} );
+const cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+
+
+for(let xis = -18; xis < 18; xis++){
+for(let yps = -8; yps < 8; yps++){
+    for(let zs = -8; zs < -1; zs++){
+    const star = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 0.02), new THREE.MeshBasicMaterial( { color: 0xffffff, map: new THREE.TextureLoader().load('./glow.png'), transparent: true } ))
+    star.position.set(Math.random() + xis * 1.2, Math.random() + yps * 1.2, Math.random() + zs * 1.2)
+    scene.add(star)
+    }
+}
+}
+
+
+
+
+const light = new THREE.PointLight(0xffffff, 1, 100)
+scene.add(light)
+light.position.z = 6
+light.position.x = 4
+
+
+camera.position.set(-1.2, 0, 3.6);
+
+function animate() {
+    requestAnimationFrame( animate );
+ 
+    //cube.rotation.x += 0.01;
+    cube.rotation.y += 0.001;
+
+    renderer.render( scene, camera );
+};
+
+animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravidade de Mercúrio</title>
+    <canvas id="bgcanvas"></canvas>
+    <style>
+        body {
+            margin: 0;
+            position: absolute;
+        }
+        canvas{
+            position: fixed;
+        }
+.content{
+    width: 350px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    margin-left: 40vw;
+
+}
+h2{
+    color: aliceblue;
+
+}
+    </style>
+</head>
+<body>
+    <div class="content">
+    <h2>Gravidade de Mercúrio: 3,7 m/s²</h2>
+</div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./js/three.module.js",
+                "PointerLockControls": "./js/PointerLockControls.js",
+                "cannon-es": "./js/cannon-es.js",
+                "RGBELoader": "./js/RGBELoader.js"
+            }
+        }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+import {PointerLockControls} from 'PointerLockControls';
+//import {RGBELoader} from 'RGBELoader';
+
+import * as CANNON from 'cannon-es';
+
+const renderer = new THREE.WebGLRenderer({canvas: document.querySelector('#bgcanvas')});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+//document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(
+    45,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    2000
+);
+scene.add(camera)
+
+/*const loader = new RGBELoader()
+loader.load('./matrixworld.hdr', function(texture){
+    texture.mapping = THREE.EquirectangularReflectionMapping
+    scene.background = texture
+    scene.environment = texture
+})*/
+
+const orbit = new PointerLockControls(camera, renderer.domElement);
+
+camera.position.set(0, 4, 30);
+
+
+
+window.addEventListener('click', ()=>{
+    orbit.lock()
+})
+
+const boxGeo = new THREE.BoxGeometry(2, 2, 2);
+const boxMat = new THREE.MeshLambertMaterial({
+	color: 0xffffff,
+    map: new THREE.TextureLoader().load(['./mass70.jpg']),
+	transparent: true
+});
+const boxMesh = new THREE.Mesh(boxGeo, boxMat);
+scene.add(boxMesh);
+
+
+const earthGeo = new THREE.SphereGeometry(140, 64, 64);
+const earthMat = new THREE.MeshBasicMaterial({
+	color: 0xffffff,
+    map: new THREE.TextureLoader().load(['./sun/high/8k_sun.jpg']),
+
+	//wireframe: true
+});
+const earth = new THREE.Mesh(earthGeo, earthMat);
+scene.add(earth);
+earth.position.set(0, 1000, -400)
+earth.rotation.x = Math.PI /2
+
+const boxGeo2 = new THREE.BoxGeometry(2, 2, 2);
+const boxMat2 = new THREE.MeshLambertMaterial({
+	color: 0xffff00,
+    map: new THREE.TextureLoader().load(['./mass20.jpg']),
+	//wireframe: true
+});
+const boxMesh2 = new THREE.Mesh(boxGeo2, boxMat2);
+scene.add(boxMesh2);
+
+const sphereGeo = new THREE.SphereGeometry(2);
+const sphereMat = new THREE.MeshPhysicalMaterial({ 
+	//reflectivity: 1,
+    roughness:0,
+    color: 0xFFFFFF,
+    metalness:0,
+    map: new THREE.TextureLoader().load(['./mass20.jpg']),
+  //  transmission: 1,
+	//transparent: true
+ });
+const sphereMesh = new THREE.Mesh( sphereGeo, sphereMat);
+scene.add(sphereMesh);
+sphereMesh.castShadow = true
+
+
+
+const sphereGeo2 = new THREE.SphereGeometry(3);
+const sphereMat2 = new THREE.MeshStandardMaterial({ 
+	reflectivity: 1,
+    roughness:0.1,
+    color: 0xffFFFF,
+    metalness:0.1,
+    map: new THREE.TextureLoader().load(['./mass70s.jpg'])   
+    //transmission: 0.5
+	//wireframe: true,
+ });
+const sphereMesh2 = new THREE.Mesh( sphereGeo2, sphereMat2);
+scene.add(sphereMesh2);
+//sphereMesh2.castShadow = true
+
+
+const groundGeo = new THREE.PlaneGeometry(5000, 5000);
+const groundMat = new THREE.MeshPhysicalMaterial({ 
+	color: 0xffffff,
+	side: THREE.DoubleSide,
+    map: new THREE.TextureLoader().load(['./moon/high/diff.jpg']),
+    displacementMap: new THREE.TextureLoader().load(['./moon/high/dis.jpg']),
+    displacementScale: 0.5
+	//wireframe: true 
+ });
+const groundMesh = new THREE.Mesh(groundGeo, groundMat);
+scene.add(groundMesh);
+groundMesh.castShadow = true
+groundMesh.receiveShadow = true;
+
+
+const light = new THREE.SpotLight(0x808080, 6, 75)
+light.position.set(0, 55, 0)
+scene.add(light)
+
+const amblight = new THREE.AmbientLight(0x808080)
+scene.add(amblight)
+
+
+const characterg = new THREE.BoxGeometry(2, 6, 2);
+const characterm = new THREE.MeshLambertMaterial({
+	color: 0xffff00,
+    position: new THREE.Vector3(0, 2, 0)
+	//wireframe: true
+});
+const character = new THREE.Mesh(characterg, characterm);
+scene.add(character);
+ 
+
+
+
+
+
+const world = new CANNON.World({
+    gravity: new CANNON.Vec3(0, -3.7, 0)
+});
+
+const groundPhysMat = new CANNON.Material();
+
+const groundBody = new CANNON.Body({
+    //shape: new CANNON.Plane(),
+    //mass: 10
+    shape: new CANNON.Box(new CANNON.Vec3(200, 200, 0.1)),
+    type: CANNON.Body.STATIC,
+    material: groundPhysMat
+});
+world.addBody(groundBody);
+groundBody.quaternion.setFromEuler(-Math.PI /2, 0,0);
+
+const boxPhysMat = new CANNON.Material();
+
+const boxBody = new CANNON.Body({
+    mass: 70,
+    shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),
+    position: new CANNON.Vec3(12, 30, 0),
+    
+    material: boxPhysMat
+});
+world.addBody(boxBody);
+
+const boxBody2 = new CANNON.Body({
+    mass: 20,
+    shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),
+    position: new CANNON.Vec3(1, 30, 0),
+    material: boxPhysMat
+});
+world.addBody(boxBody2);
+
+
+
+const characterBody = new CANNON.Body({
+    mass: 0,
+    shape: new CANNON.Box(new CANNON.Vec3(3, 6, 3)),
+    
+    material: boxPhysMat
+});
+world.addBody(characterBody);
+
+
+
+boxBody.angularVelocity.set(0, 10, 0);
+boxBody.angularDamping = 0.5;
+
+const groundBoxContactMat = new CANNON.ContactMaterial(
+    groundPhysMat,
+    boxPhysMat,
+    {friction: 0.04}
+);
+
+world.addContactMaterial(groundBoxContactMat);
+
+const spherePhysMat = new CANNON.Material();
+
+const sphereBody = new CANNON.Body({
+    mass: 20,
+    shape: new CANNON.Sphere(2),
+    position: new CANNON.Vec3(5, 30, 0),
+    material: spherePhysMat
+});
+world.addBody(sphereBody);
+
+sphereBody.linearDamping = 0.21
+
+const groundSphereContactMat = new CANNON.ContactMaterial(
+    groundPhysMat,
+    spherePhysMat,
+    {restitution: 0.2}
+);
+
+
+
+
+
+
+
+
+const sphereBody2 = new CANNON.Body({
+    mass: 70,
+    shape: new CANNON.Sphere(3),
+    position: new CANNON.Vec3(-12, 30, 0),
+    material: spherePhysMat
+});
+world.addBody(sphereBody2);
+
+sphereBody2.linearDamping = 0.21
+
+
+
+let keyboard = []
+const clock = new THREE.Clock()
+
+addEventListener('keydown', function(e){
+    keyboard[e.key] = true
+})
+
+addEventListener('keyup', function(e){
+    keyboard[e.key] = false
+})
+
+function eventkey(){
+if(keyboard['W']){
+    orbit.moveForward(0.5)
+}
+if(keyboard['S']){
+    orbit.moveForward(-0.5)
+}
+if(keyboard['A']){
+    orbit.moveRight(-0.5)
+}
+if(keyboard['D']){
+    orbit.moveRight(0.5)
+}
+if(keyboard['Shift']){
+    orbit.moveForward(1)
+}
+if(keyboard['w']){
+    orbit.moveForward(0.5)
+}
+if(keyboard['a']){
+    orbit.moveForward(-0.5)
+}
+if(keyboard['s']){
+    orbit.moveRight(-0.5)
+}
+if(keyboard['d']){
+    orbit.moveRight(0.5)
+}
+}
+
+world.addContactMaterial(groundSphereContactMat);
+
+const timeStep = 1 / 60;
+
+function animate() {
+    requestAnimationFrame(animate)
+    world.step(timeStep);
+
+    groundMesh.position.copy(groundBody.position);
+    groundMesh.quaternion.copy(groundBody.quaternion);
+
+    boxMesh.position.copy(boxBody.position);
+    boxMesh.quaternion.copy(boxBody.quaternion);
+
+    character.position.copy(characterBody.position);
+    character.quaternion.copy(characterBody.quaternion);
+    //ESSE É O ALGORITMO!!!!
+    characterBody.position.copy(camera.position);
+    characterBody.quaternion.copy(camera.quaternion);
+    //
+
+    boxMesh2.position.copy(boxBody2.position);
+    boxMesh2.quaternion.copy(boxBody2.quaternion);
+
+    sphereMesh.position.copy(sphereBody.position);
+    sphereMesh.quaternion.copy(sphereBody.quaternion);
+
+    sphereMesh2.position.copy(sphereBody2.position);
+    sphereMesh2.quaternion.copy(sphereBody2.quaternion);
+
+    eventkey(clock.getDelta)
+
+    renderer.render(scene, camera);
+}
+animate()
+
+
+window.addEventListener('resize', function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+    </script>
+</body>
+</html>

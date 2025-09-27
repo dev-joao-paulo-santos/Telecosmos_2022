@@ -1,0 +1,11 @@
+Model Information:
+* title:	Leo Rover
+* source:	https://sketchfab.com/3d-models/leo-rover-3cfcacdab95345da843ad57d0b74b009
+* author:	Leo Rover (https://sketchfab.com/TurtleRover)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Leo Rover" (https://sketchfab.com/3d-models/leo-rover-3cfcacdab95345da843ad57d0b74b009) by Leo Rover (https://sketchfab.com/TurtleRover) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

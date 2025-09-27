@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netuno</title>
+</head>
+
+<body>
+    <canvas id="background"></canvas>
+    <div class="content">
+        <h1>Netuno</h1>
+        <br><br><br>
+        <p>
+            Netuno é o oitavo e o último planeta do Sistema Solar (o último que se encaixa na classificação de planeta,
+            pelo menos), e o último dos planetas gasosos. É considerado o planeta mais distante do nosso Sistema Solar,
+            localizado a uma distância de 4.5 bilhões de quilômetros do Sol, lhe concedendo temperaturas na média dos
+            200 graus negativos, sendo outro gigante gelado. Sua composição é de hidrogênio, amônia, metano e hélio. A
+            aparência azulada escura de Netuno é um efeito causado pela alta concentração de metano (CH₄), da mesma forma que
+            acontece em seu vizinho, Urano.
+        </p>
+        <p>
+            Seu tamanho é de 49244 quilômetros de diâmetro, sendo menor que Urano por muito pouco. Seu movimento de
+            translação leva um período equivalente a 165 anos terrestres para ser completado, em contraste com sua
+            rápida rotação, que dura cerca de 16 horas. Embora seja o planeta menos explorado do Sistema Solar, sabe-se,
+            por obse    rvação, que o clima lá é muito instável, por causa dos gases e das tempestades de vento, onde a mais
+            conhecida delas é conhecida como Grande Mancha Escura, com o tamanho da Terra, localizado próximo ao equador
+            do planeta.
+        </p>
+        <p>Foram encontrados e confirmados 14 satélites naturais na órbita de Netuno, que são divididos em luas
+            regulares (orbitam no mesmo sentido do planeta) e irregulares (possuem movimento de órbita retrógrado em
+            relação ao planeta). Seus anéis são ainda menos brilhantes do que Urano, sendo divididos em cinco conjuntos.
+            A composição desses anéis é formada por poeira, gelo e detritos de corpos celestes.</p>
+
+    </div>
+
+    <style>
+        * {
+            font-family: 'Century Gothic';
+            color: aliceblue;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 50vw;
+        }
+    </style>
+
+
+
+    <script type="importmap">
+        { "imports": {
+            "three": "./js/three.module.js",
+            "GLTFLoader": "./js/GLTFLoader.js",
+            "OrbitControls": "./js/OrbitControls.js"
+
+        }}
+    </script>
+    <script type="module">
+        import * as THREE from 'three'
+        // import {OrbitControls} from 'OrbitControls'
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector('#background') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio)
+        //document.body.appendChild( renderer.domElement );
+
+        const txloader = new THREE.TextureLoader()
+
+
+        const diffuse = txloader.load('./neptune/high/2k_neptune.jpg')
+
+
+        const geometry = new THREE.SphereGeometry(1, 128, 128);
+        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, map: diffuse });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+
+        const geometryr = new THREE.RingGeometry(1.5, 1.51, 128);
+        const materialr = new THREE.MeshBasicMaterial({ color: 0X86B3B9, side: THREE.DoubleSide, transparent: true, opacity: 0.2 });
+        const ring = new THREE.Mesh(geometryr, materialr);
+        cube.add(ring);
+        ring.rotation.x = -1.3
+
+        const geometryr2 = new THREE.RingGeometry(1.78, 1.85, 128);
+        const materialr2 = new THREE.MeshBasicMaterial({ color: 0X86B3B9, side: THREE.DoubleSide, transparent: true, opacity: 0.2 });
+        const ring2 = new THREE.Mesh(geometryr2, materialr2);
+        cube.add(ring2);
+        ring2.rotation.x = -1.3
+
+
+        const geometryr3 = new THREE.RingGeometry(1.9, 1.91, 128);
+        const materialr3 = new THREE.MeshBasicMaterial({ color: 0X86B3B9, side: THREE.DoubleSide, transparent: true, opacity: 0.2 });
+        const ring3 = new THREE.Mesh(geometryr3, materialr3);
+        cube.add(ring3);
+        ring3.rotation.x = -1.3
+
+
+
+
+
+
+
+        for (let xis = -18; xis < 18; xis++) {
+            for (let yps = -8; yps < 8; yps++) {
+                for (let zs = -8; zs < -1; zs++) {
+                    const star = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 0.02), new THREE.MeshBasicMaterial({ color: 0xffffff, map: new THREE.TextureLoader().load('./glow.png'), transparent: true }))
+                    star.position.set(Math.random() + xis * 1.2, Math.random() + yps * 1.2, Math.random() + zs * 1.2)
+                    scene.add(star)
+                }
+            }
+        }
+
+
+
+
+        const light = new THREE.PointLight(0xffffff, 1, 100)
+        scene.add(light)
+        light.position.z = 6
+        light.position.x = 4
+
+
+        camera.position.set(-1.8, 0, 4.6);
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            //cube.rotation.x += 0.01;
+            cube.rotation.y += 0.001;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>Netuno

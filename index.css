@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
+/* canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+} */
+
+* {
+    font-family: 'Raleway';
+    height: 50px;
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#sidebar {
+    position: absolute;
+    top: 0;
+    width: 420px;
+    height: 100vh;
+    left: -420px;
+    transition: 320ms ease-in-out;
+}
+
+#sidebar.active {
+    left: -100px;
+}
+
+#arrow {
+    color:#bae6fd;
+    transition-duration: 320ms;
+    font-size: 55px;
+}
+
+
+
+#arrow.active {
+    transform: rotateY(-180deg);
+    color:#38bdf8;
+    text-shadow: 0 0 30px #38bdf8;
+}
+
+#sidebar ul li {
+    font-size: 20px;
+    padding: 24px 24px;
+}
+
+#sidebar .toggle-btn {
+    position: absolute;
+    top: 20px;
+    left: 450px;
+}
+
+
+.toggle-btn span {
+    width: 45px;
+    height: 45px;
+    background:transparent;
+    color: aliceblue;
+    text-align: center;
+    font-size: 40px;
+    display: block;
+    cursor: pointer;
+    display: block;
+    margin-top: 85vh;
+    transition-duration: 0.2s;
+    
+}
+
+.toggle-btn span:hover{
+    text-shadow: 0 0 40px aliceblue;
+}
+
+.fakelink:hover{
+    text-shadow:
+    0 0 10px cyan;
+}
+
+.spanmenu {
+    background: transparent;
+    transition-duration: 2s;
+    height: 45px;
+}
+
+.spanmenu:hover {
+    background: transparent;
+    color: transparent;
+}
+
+main {
+    position: absolute;
+}
+
+
+
+
+a {
+    font-size: 20px;
+    padding-left: 80px;
+    margin-left: 35px;
+    cursor: pointer;
+    top: 40px;
+    color: #dddddd;
+    text-decoration: none;
+    
+}
+
+
+
+/* .worklink{
+    margin-left: 0px;
+    text-decoration: none;
+
+
+} *
+
+button{
+    cursor: pointer;
+   
+    padding: 10px;
+    padding-right: 100px;
+
+    margin-bottom: 50px;
+    border-color: transparent;
+    
+}
+/* color: rgb(251, 255, 182);*/
+
+
+
+
+.show-form {
+    margin-right: 3vw;
+}
+
+.hide-form {
+    margin-right: -30vw;
+}
+
+/* .initialletters {
+
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+margin-top: 10%;
+margin-left: 5vw;
+font-size: medium;
+} */
+
+.title{
+    color: rgb(251, 255, 182);
+    font-size: 80px;
+    margin-bottom: 20vh;
+    font-weight: bolder;
+ 
+}
+#formularioderegistro {
+    
+    visibility: visible;
+    transition: .4s ease-in-out;
+    background-color: transparent;
+    margin-top: 20vh;
+    border-radius: 10px;
+    float: right;
+    padding: 40px;
+    margin-right: -30vw;
+    position: relative;
+ 
+ 
+}
+
+.fakelink{
+    background: transparent;
+   transition-duration: .4s;  
+    
+}
+
+
+
+
+
+
+
+input {
+    display: flex;
+    color: #000000;
+    text-align: center;
+    border: 1px solid #dddddd;
+    border-radius: 7px;
+    height: 50px;
+    width: 300px;
+}
+input[type=email]{
+  margin-bottom: 20px;
+}
+
+input[type=text]{
+    margin-bottom: 20px;
+  }
+
+.buttons {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+
+    border-radius: 15px;
+    justify-content: space-evenly;
+}
+
+
+::placeholder{
+    padding: 10px;
+    color: rgb(70, 68, 68);
+}
+
+
+
+
+
+
+#insert{
+    transition-duration: .3s;
+    background-color: #0284c7;
+    color: azure;
+    padding-right: 20px;
+    width: 150px;
+    padding-left: 20px;
+    border-radius: 50px;
+    margin-top: 5%;
+    font-size: larger;
+}  
+
+
+#botaoocultar{
+    transition-duration: .3s;
+    background-color: #164e63;
+    color: azure;
+    padding-right: 22px;
+    padding-left: 20px;
+    border-radius: 50px;
+    margin-top: 5%;
+    width: 150px;
+    font-size: larger;
+ 
+
+}   
+
+
+  
+
+#botaoocultar:hover{
+    background: #164e63;
+    box-shadow: 0 0 10px #164e63, 0 0 10px #164e63, 0 0 10px #164e63;
+    }   
+
+#insert:hover{
+    background: #0284c7;
+    box-shadow: 0 0 10px #0284c7, 0 0 10px #0284c7, 0 0 10px #0284c7;
+    }   
+
+
+
+

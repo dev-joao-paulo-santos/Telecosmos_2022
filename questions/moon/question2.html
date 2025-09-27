@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="./bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="./jquery.js"></script>
+    <script src="./main.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="cronometer"></div>
+        <div class="row">
+            <div class="questao">
+                <form method="post" id="resposta">
+                    <div class="enunciado">Assinale a alternativa incorreta</div>
+                    <p>
+                        <input type="radio" name="answer" id="a" value="a">
+                        <label for="a">A) A lua é o único satélite natural da Terra</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" id="b" value="b">
+                        <label for="b">B) Já serviu à Terra como escudo à prova de asteroides </label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" id="c" value="c" data-resposta="true">
+                        <label for="c">C) A lua possui a capacidade de emitir luz</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" id="d" value="d">
+                        <label for="d">D) A lua é responsável pela formação de marés</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" id="e" value="e">
+                        <label for="e">E) A lua possui gravidade de cerca de 1,62 m/s² aproximadamente</label>
+                    </p>
+                    <input type="submit" value="Respondi!" name="validar">
+                    <input type="button" value="Próximo!" name="Próximo" onclick= "location.href = './question3.html'">
+                 
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

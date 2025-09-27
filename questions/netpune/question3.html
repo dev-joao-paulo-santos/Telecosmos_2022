@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="./bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="./jquery.js"></script>
+    <script src="./main.js"></script>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div id="cronometer"></div>
+        <div class="row">
+
+            <div class="questao">
+                <form method="post" id="resposta">
+                    <div class="enunciado">Netuno possui anéis. Isso está correto? </div>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="a" value="a" data-resposta="true">
+                        <label for="a">A) Sim.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="b" value="b">
+                        <label for="b">B) Não.</label>
+                    </p>
+
+                    <input type="submit" value="Respondi!" name="validar" id="validar">
+                    <input type="button" onclick="location.href='../index.html'" value="Voltar" name="proximo">
+
+                   
+               
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

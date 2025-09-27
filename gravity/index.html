@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulações de gravidade</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Olá!</h1>
+        <br>
+        <div class="pes">
+            <p>Aqui nós temos mundos 3D que possibilitam a você a percepção de como a gravidade funciona na superfície de alguns
+                planetas do Sistema Solar, afinal, até asteroides possuem seu próprio campo gravitacional. Note que os
+                planetas gasosos não estão aqui para serem simulados, pois não seria possível pisar neles, já que suas
+                superfícies são compostas por gases e poeira.</p>
+            <p>Em breve novas atualizações. Aproveite!</p>
+        </div>
+        <br>
+        <div class="buttons">
+            <button id="mercury" onclick="location.href = './gravitymercury.html'">Mercúrio</button>
+            <button id="venus" onclick="location.href = './gravityvenus.html'">Vênus</button>
+            <button id="earth" onclick="location.href = './gravityearth.html'">Terra</button>
+            <button id="moon" onclick="location.href = './gravitymoon.html'">Lua terrestre</button>
+            <button id="mars" onclick="location.href = './gravitymars.html'">Marte</button>
+            <button id="pluto" onclick="location.href = './gravitypluto.html'">Plutão</button>
+        </div>
+    </div>
+    <style>
+        * {
+            color: aliceblue;
+            font-family: 'Century Gothic';
+        }
+        body {
+            background: linear-gradient(to right, #000000, rgb(66, 2, 66));
+        }
+        button{
+            background-color: #424141;
+            padding: 20px;
+            font-size: 20px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition-duration: 0.4s;
+            margin-left: 30px;  
+            
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        button:hover{
+            background-color: firebrick;
+            margin-left: 30px;
+            box-shadow: 0 0 40px firebrick;
+        }
+        .buttons{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 14%;
+        }
+    </style>
+</body>
+
+</html>

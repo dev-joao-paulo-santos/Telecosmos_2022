@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="background"></canvas>
+    <div class="content">
+        <h1>Lua</h1>
+
+        <p> Esse é o nosso Satélite natural, e é o único que nós temos. Seu diâmetro é de 3474,8 km e sua distância em
+            relação a Terra é de 384 400 km. Há muitas especulações e teorias sobre qual seria a origem da Lua, mas
+            acredita-se que sua formação se originou por meio de uma possível colisão de um outro corpo celeste com a
+            nossa Terra, e que a Lua se formou a partir dos detritos deixados por essa colisão.</p>
+        <p>Sua superfície é composta por diversos tipos de rochas e minerais (e não queijo!), formando três camadas que
+            a Terra também possui: crosta, manto e núcleo, além de possuir atmosfera também, porém muito fraca, o que
+            explica a grande quantidade de crateras em sua superfície. Inclusive, a Lua já serviu de escudo contra
+            possíveis choques de asteroides contra a Terra!</p>
+        <p>A Lua possui movimentos de rotação e translação, fazendo com que possamos vê-la do céu em diferentes ângulos.
+            Porém a sua rotação faz com que ela fique com apenas um lado voltado para a Terra. O seu movimento de
+            translação em relação ao seu planeta é de 27 dias, 7 horas e 43 minutos. Por isso, existem as 4 fases da
+            Lua, que são: Minguante, Cheia, Crescente e Nova, que se referem à alteração do avistamento da Lua em
+            períodos do mês.</p>
+    </div>
+
+    <style>
+        * {
+            font-family: 'Century Gothic';
+            color: aliceblue;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 50vw;
+        }
+    </style>
+
+
+
+    <script type="importmap">
+        { "imports": {
+            "three": "./js/three.module.js",
+            "GLTFLoader": "./js/GLTFLoader.js",
+            "OrbitControls": "./js/OrbitControls.js"
+
+        }}
+    </script>
+    <script type="module">
+        import * as THREE from 'three'
+        //import {OrbitControls} from 'OrbitControls'
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector('#background') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio)
+        //document.body.appendChild( renderer.domElement );
+
+        const txloader = new THREE.TextureLoader()
+
+        //const normal = txloader.load('./moon/high/g')
+        const diffuse = txloader.load('./moon/high/diff.jpg')
+        const ao = txloader.load('./moon/high/dis.jpg')
+
+        const geometry = new THREE.SphereGeometry(0.9, 128, 128);
+        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, map: diffuse, displacementMap: ao, displacementScale: 0.05 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+
+        for (let xis = -18; xis < 18; xis++) {
+            for (let yps = -8; yps < 8; yps++) {
+                for (let zs = -8; zs < -1; zs++) {
+                    const star = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 0.02), new THREE.MeshBasicMaterial({ color: 0xffffff, map: new THREE.TextureLoader().load('./glow.png'), transparent: true }))
+                    star.position.set(Math.random() + xis * 1.2, Math.random() + yps * 1.2, Math.random() + zs * 1.2)
+                    scene.add(star)
+                }
+            }
+        }
+
+
+
+
+        const light = new THREE.PointLight(0xffffff, 1, 100)
+        scene.add(light)
+        light.position.z = 6
+        light.position.x = 4
+
+
+        camera.position.set(-1.2, 0, 3.6);
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            //cube.rotation.x += 0.01;
+            cube.rotation.y += 0.001;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>

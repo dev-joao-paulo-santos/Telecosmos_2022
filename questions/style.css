@@ -1,0 +1,141 @@
+* {
+    color: aliceblue;
+}
+.box{
+position: absolute;
+display: flex;
+flex-direction: column;
+align-items: center;
+z-index: 2;
+}
+.container {
+    position: absolute;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    display: flex; /* Torna a div pai um container flexível */
+    justify-content: center; /* Alinha a div .buttons ao centro horizontalmente */
+    align-items: center; /* Centraliza a div .buttons verticalmente */
+}
+
+a {
+    text-decoration: none;
+    color: aqua;
+    transition-duration: 0.6s;
+}
+
+a:hover {
+    color: crimson;
+    text-shadow: 0 0 10px crimson;
+}
+
+
+button {
+    padding: 20px 20px 20px 20px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition-duration: 450ms;
+}
+
+
+
+#sun:hover {
+    box-shadow: 0 0 30px #fc9048, 0 0 30px #fc9048, 0 0 30px #fc9048;
+}
+
+#mercury:hover {
+    box-shadow: 0 0 30px #78716c, 0 0 30px #78716c, 0 0 30px #78716c;
+}
+
+
+#venus:hover {
+    box-shadow: 0 0 30px #ca8a04, 0 0 30px #ca8a04, 0 0 30px #ca8a04;
+}
+
+
+#earth:hover {
+    box-shadow: 0 0 30px #16a34a, 0 0 30px #16a34a, 0 0 30px #16a34a;
+}
+
+#moon:hover {
+    box-shadow: 0 0 30px #4b5563, 0 0 30px #4b5563, 0 0 30px #4b5563;
+}
+
+
+#mars:hover {
+    box-shadow: 0 0 30px #dc2626, 0 0 30px #dc2626, 0 0 30px #dc2626;
+}
+
+
+#jupiter:hover {
+    box-shadow: 0 0 30px #f59e0b, 0 0 30px #f59e0b, 0 0 30px #f59e0b;
+}
+
+
+#saturn:hover {
+    box-shadow: 0 0 30px #fde68a, 0 0 30px #fde68a, 0 0 30px #fde68a;
+}
+
+#uranus:hover {
+    box-shadow: 0 0 30px #cffafe, 0 0 30px #cffafe, 0 0 30px #cffafe;
+}
+
+#neptune:hover {
+    box-shadow: 0 0 30px #0ea5e9, 0 0 30px #0ea5e9, 0 0 30px #0ea5e9;
+}
+
+#pluto:hover {
+    box-shadow: 0 0 30px #9a3412, 0 0 30px #9a3412, 0 0 30px #9a3412;
+}
+
+
+#geral:hover {
+    box-shadow: 0 0 30px #6b21a8, 0 0 30px #6b21a8, 0 0 30px #6b21a8;
+}
+
+body {
+    background: transparent;
+    overflow: hidden;
+    margin: 0;
+}
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Garante que a cena Three.js esteja atrás do conteúdo */
+}
+
+p {
+    text-align: center;
+}
+
+.pes {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 98vw;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões sejam distribuídos em várias linhas */
+    justify-content: space-around; /* Ou space-between, dependendo do espaço desejado entre os botões */
+    align-items: center;
+    width: 50vw;
+    height: 30vh;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; /* Ou space-between, dependendo do espaço desejado entre os botões */
+    align-items: center;
+}
+
+.buttons button {
+    margin: 20px;
+    margin-bottom: 10px; /* Espaçamento entre os botões */
+}

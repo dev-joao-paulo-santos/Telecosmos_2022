@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urano</title>
+</head>
+
+<body>
+    <canvas id="background"></canvas>
+    <div class="content">
+        <h1>Urano</h1>
+        <br><br><br>
+        <p>
+            Urano é o sétimo planeta do Sistema Solar, com uma distância de cerca de 2.87 bilhões de quilômetros do Sol.
+            É também o terceiro maior planeta que orbita o Sol, com cerca de 50,72 km de diâmetro. É conhecido como um dos
+            Gigantes de Gelo por causa de sua temperatura de superfície, cuja média é de 197 graus negativos, devido a
+            sua distância do Sol e de sua composição, cujos principais elementos são o hélio, hidrogênio e metano, onde
+            o metano dá essa aparência verde-azulada do planeta. Também pode ser encontrado água e amônia, que fazem com
+            que haja o surgimento de nuvens em suas camadas mais baixas. É um planeta que possui sistema de anéis, assim
+            como Saturno, porém seus anéis são menos brilhantes em relação ao seu gigante vizinho.
+        </p>
+        <p>
+            Urano possui cerca de 27 satélites naturais registrados em sua órbita, onde os mais próximos de sua
+            atmosfera são compostos por rochas e gelo. Suas principais luas são, em ordem de tamanho, Oberon, Titania,
+            Umbriel, Ariel e Miranda. Uma coisa importante de se observar é que o planeta possui seu ângulo de
+            inclinação muito grande em relação ao seu equador; cerca de 97.7°, mais precisamente, o que faz o planeta
+            girar praticamente deitado, o que tem intrigado muitos cientistas sobre o que teria acontecido para esse
+            ângulo de inclinação ficar tão elevado.
+        </p>
+
+    </div>
+
+    <style>
+        * {
+            font-family: 'Century Gothic';
+            color: aliceblue;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 50vw;
+        }
+    </style>
+
+
+
+    <script type="importmap">
+        { "imports": {
+            "three": "./js/three.module.js",
+            "GLTFLoader": "./js/GLTFLoader.js",
+            "OrbitControls": "./js/OrbitControls.js"
+
+        }}
+    </script>
+    <script type="module">
+        import * as THREE from 'three'
+        // import {OrbitControls} from 'OrbitControls'
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector('#background') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio)
+        //document.body.appendChild( renderer.domElement );
+
+        const txloader = new THREE.TextureLoader()
+
+
+        const diffuse = txloader.load('./uranus/high/2k_uranus.png')
+
+
+        const geometry = new THREE.SphereGeometry(1, 128, 128);
+        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, map: diffuse });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        cube.rotation.x = Math.atan(98)
+        //cube.rotation.y = Math.atan(100)
+
+        const geometryr = new THREE.RingGeometry(1.5, 1.52, 128);
+        const materialr = new THREE.MeshBasicMaterial({ color: 0X86B3B9, side: THREE.DoubleSide, transparent: true, opacity: 0.2 });
+        const ring = new THREE.Mesh(geometryr, materialr);
+        cube.add(ring);
+        ring.rotation.x = Math.atan(98)
+        ring.rotation.z = Math.atan(98)
+
+
+        const geometryr2 = new THREE.RingGeometry(1.54, 1.545, 128);
+        const materialr2 = new THREE.MeshBasicMaterial({ color: 0X86B3B9, side: THREE.DoubleSide, transparent: true, opacity: 0.1 });
+        const ring2 = new THREE.Mesh(geometryr2, materialr2);
+        cube.add(ring2);
+        ring2.rotation.x = Math.atan(98)
+        ring2.rotation.z = Math.atan(98)
+
+
+        const geometryr3 = new THREE.RingGeometry(1.552, 1.57, 128);
+        const materialr3 = new THREE.MeshBasicMaterial({ color: 0X86B3B9, side: THREE.DoubleSide, transparent: true, opacity: 0.1 });
+        const ring3 = new THREE.Mesh(geometryr3, materialr3);
+        cube.add(ring3);
+        ring3.rotation.x = Math.atan(98)
+        ring3.rotation.z = Math.atan(98)
+
+        const geometryr4 = new THREE.RingGeometry(1.58, 1.593, 128);
+        const materialr4 = new THREE.MeshBasicMaterial({ color: 0X86B3B9, side: THREE.DoubleSide, transparent: true, opacity: 0.1 });
+        const ring4 = new THREE.Mesh(geometryr4, materialr4);
+        cube.add(ring4);
+        ring4.rotation.x = Math.atan(98)
+        ring4.rotation.z = Math.atan(98)
+
+        for (let xis = -18; xis < 18; xis++) {
+            for (let yps = -8; yps < 8; yps++) {
+                for (let zs = -8; zs < -1; zs++) {
+                    const star = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 0.02), new THREE.MeshBasicMaterial({ color: 0xffffff, map: new THREE.TextureLoader().load('./glow.png'), transparent: true }))
+                    star.position.set(Math.random() + xis * 1.2, Math.random() + yps * 1.2, Math.random() + zs * 1.2)
+                    scene.add(star)
+                }
+            }
+        }
+
+
+
+
+        const light = new THREE.PointLight(0xffffff, 1, 100)
+        scene.add(light)
+        light.position.z = 6
+        light.position.x = 4
+
+
+        camera.position.set(-1.8, 0, 4.6);
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            //cube.rotation.x += 0.01;
+            cube.rotation.y += 0.001;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>

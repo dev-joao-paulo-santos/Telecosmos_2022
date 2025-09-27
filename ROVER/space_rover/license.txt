@@ -1,0 +1,11 @@
+Model Information:
+* title:	Space Rover
+* source:	https://sketchfab.com/3d-models/space-rover-1dc9c6f275bd449db586c27eb2d91f24
+* author:	joogray (https://sketchfab.com/joogray)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Space Rover" (https://sketchfab.com/3d-models/space-rover-1dc9c6f275bd449db586c27eb2d91f24) by joogray (https://sketchfab.com/joogray) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

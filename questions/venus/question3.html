@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="./bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="./jquery.js"></script>
+    <script src="./main.js"></script>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div id="cronometer"></div>
+        <div class="row">
+
+            <div class="questao">
+                <form method="post" id="resposta">
+                    <div class="enunciado">Por que a superfície de Vênus é tão quente?</div>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="a" value="a">
+                        <label for="a">A) Por causa de seu núcleo, que está se expandindo.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="b" value="b">
+                        <label for="b">B) Por causa do seu tamanho em relação aos outros planetas.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="c" value="c">
+                        <label for="c">C) Sua posição como o planeta mais perto do Sol possibilita isso.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="d" value="d">
+                        <label for="d">D) Porque a composição química de sua superfície é composta por enxofre e níquel derretido.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="e" value="e"  data-resposta="true">
+                        <label for="e">E) Por causa da grande quantidade de dióxido de carbono em sua atmosfera.</label>
+                    </p>
+                    <input type="submit" value="Respondi!" name="validar" id="validar">
+                    <input type="button" onclick="location.href='../index.html'" value="Voltar" name="proximo">
+
+                   
+                
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

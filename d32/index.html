@@ -1,0 +1,1430 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="./js/three.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <script src="./js/dat.gui.min.js" integrity="sha512-WoO4Ih0CDOSLYafy22wZD/mcJ7k0ESLqtQsFa6zFKnEUrbtuGU+GkLtVhgt93xa2qewG5gKEC6CWlN8OaCTSVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./js/threex.domevents.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/starData.js"></script>
+    <script src="./3dva.js" defer="defer"></script>
+    <script src="./js/IAU-CSN.js"></script>
+    <script src="./js/RGBELoader.js"></script>
+    
+
+    <link rel="stylesheet" href="mystyle.css">
+  </head>
+  <body>
+  <!-- CORPO DO SITE-->
+    <div class="layout"> 
+      <div class="layout-left">
+        <div class="ambient-selector">
+          <div class="ambient-active"><img src="aboboda_icon.png" alt="aboboda_icon" style="width:100%;height:100%;"></div>
+          <div id="button1" class="ambient-button"><img src="solar-system.png" alt="solar_system" style="width:100%;height:100%;"></div>
+          <div id="button2" class="ambient-button"><img src="aboboda_icon.png" alt="aboboda_icon" style="width:100%;height:100%;"></div>
+        </div>
+        
+      </div>
+      <div class="layout-right">
+        <div id="infoi" class="visible">
+        </div>
+      </div>
+    </div>
+
+    <div hidden>
+      <div id="sun">
+          <table class="tg" style="table-layout: fixed; width: 100%">
+          <colgroup>
+          <col style="width: 100%">
+          <col style="width: 100%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th class="tg-x028" colspan="2">Dados observacionais</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tg-u3q6">Distância média<br>da Terra</td>
+              <td class="tg-mk6l">1,496×1011 m<br>8,317 min (499 sec), na velocidade da luz</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Magnitude aparente (V)</td>
+              <td class="tg-mk6l">−26,74</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Magnitude absoluta</td>
+              <td class="tg-mk6l">4,85</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Classificação estelar</td>
+              <td class="tg-mk6l">G2V</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Metalicidade</td>
+              <td class="tg-mk6l">Z = 0,0177</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Diâmetro angular</td>
+              <td class="tg-mk6l">31,6′ – 32,7′</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Adjetivo</td>
+              <td class="tg-mk6l">solar</td>
+            </tr>
+            <tr>
+              <td class="tg-x028" colspan="2">Características orbitais</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Distância média<br>do centro da Via Láctea</td>
+              <td class="tg-mk6l">~2,5×1020 m<br>26 000 anos-luz</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Período orbital galáctico</td>
+              <td class="tg-mk6l">(2,25–2,50) × 108 anos</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Velocidade</td>
+              <td class="tg-mk6l">~2,20×105 m/sórbita em torno do centro da Galáxia<br>~2×104 m/s<br>relativo à velocidade média de outras estrelas na vizinhança estelar.</td>
+            </tr>
+            <tr>
+              <td class="tg-x028" colspan="2">Características físicas</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Diâmetro médio</td>
+              <td class="tg-mk6l">1,392×109 m<br>109 × Terra</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Raio equatorial</td>
+              <td class="tg-mk6l">6,963×108 m<br>109 × Terra</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Circunferência equatorial</td>
+              <td class="tg-mk6l">4,379 × 109 m<br>109 × Terra</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Achatamento</td>
+              <td class="tg-mk6l">9 × 10−6</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Área de superfície</td>
+              <td class="tg-mk6l">6,0877 × 1012 km2<br>11 990 × Terra</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Volume</td>
+              <td class="tg-mk6l">1,412 × 1018 km3 <br>1 300 000 × Terra</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Massa</td>
+              <td class="tg-mk6l">1,9891 × 1030 kg<br>332 900 × Terra</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Densidade média</td>
+              <td class="tg-mk6l">1,408 × 103 kg/m3</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Densidade por região</td>
+              <td class="tg-mk6l">Núcleo: 1,5 ×10 5 kg/m3<br>Base da fotosfera: 2×10−4 kg/m3<br>Base da cromosfera: 5×10−6 kg/m3<br>Coroa solar: 1×10−12 kg/m3</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Gravidade na superfície equatorial</td>
+              <td class="tg-mk6l">274,0 m/s2 <br>27,4 g<br>28 × Terra</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Velocidade de escape<br>(da superfície)</td>
+              <td class="tg-mk6l">617,7 km/s<br>55 × Terra</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Temperatura<br>da superfície (efetiva)</td>
+              <td class="tg-mk6l">5 778 K</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6" colspan="2">Temperatura<br>da coroa solar</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Temperatura<br>do núcleo</td>
+              <td class="tg-mk6l">~15,7 × 106 K</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Luminosidade (Lsol)</td>
+              <td class="tg-mk6l">3,846 × 1026 W<br>~3,75×10 28 lm<br>~98 lm/W eficiência</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Intensidade (Isol)</td>
+              <td class="tg-mk6l">2,009 × 107 W·m−2·sr−1</td>
+            </tr>
+            <tr>
+              <td class="tg-x028" colspan="2">Características de rotação</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Obliquidade</td>
+              <td class="tg-mk6l">7,25°<br>(para a eclíptica)<br>67,23°<br>(para o plano galático)</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Ascensão reta<br>do pólo norte</td>
+              <td class="tg-mk6l">286,13°<br>19h 4min 30s</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Declinação<br>do pólo norte</td>
+              <td class="tg-mk6l">+63,87°<br>63°52' N</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Período de rotação sideral<br>(na latitude 16°)</td>
+              <td class="tg-mk6l">25,38 dias<br>25d 9h 7min 13s</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">(no equador)</td>
+              <td class="tg-mk6l">25,05 dias</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">(nos pólos)</td>
+              <td class="tg-mk6l">34,3 dias</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Velocidade de rotação<br>(no equador)</td>
+              <td class="tg-mk6l">7,189×103 km/h</td>
+            </tr>
+            <tr>
+              <td class="tg-x028" colspan="2">Composição fotosférica por massa</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Hidrogênio</td>
+              <td class="tg-mk6l">73,46%</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Hélio</td>
+              <td class="tg-mk6l">24,85%</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Oxigênio</td>
+              <td class="tg-mk6l">0,77%</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Carbono</td>
+              <td class="tg-mk6l">0,29%</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Ferro</td>
+              <td class="tg-mk6l">0,16%</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Enxofre</td>
+              <td class="tg-mk6l">0,12%</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Néon</td>
+              <td class="tg-mk6l">0,12%</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Nitrogênio</td>
+              <td class="tg-mk6l">0,09%</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Silício</td>
+              <td class="tg-mk6l">0,07%</td>
+            </tr>
+            <tr>
+              <td class="tg-mk6l">Magnésio</td>
+              <td class="tg-mk6l">0,05%</td>
+            </tr>
+          </tbody>
+          </table>
+      </div>
+      <div id="mercury">
+          <table class="tg" style="table-layout: fixed; width: 100%">
+          <colgroup>
+          <col style="width: 100%">
+          <col style="width: 100%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th class="tg-x028" colspan="2">Características orbitais</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tg-u3q6">Semieixo maior</td>
+              <td class="tg-mk6l">57 909 050 km<br>0,387098 UA</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Periélio</td>
+              <td class="tg-mk6l">46 001 200 km<br>0,307 499 UA</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Afélio</td>
+              <td class="tg-mk6l">69 816 900 km<br>0,466 697 UA</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Excentricidade</td>
+              <td class="tg-mk6l">0,205 630</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Período orbital</td>
+              <td class="tg-mk6l">87,969 dias (0,240) anos</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Período sinódico</td>
+              <td class="tg-mk6l">115,88 dias</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Velocidade orbital média</td>
+              <td class="tg-mk6l">47,362 km/s</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Inclinação</td>
+              <td class="tg-mk6l">Com a eclíptica: 5,145°<br>Com o equador da Terra: entre 18,29° e 28,58 °</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Argumento do periastro</td>
+              <td class="tg-mk6l">29,124º</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Longitude do nó ascendente</td>
+              <td class="tg-mk6l">48,331º</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Número de satélites</td>
+              <td class="tg-mk6l">Nenhum</td>
+            </tr>
+            <tr>
+              <td class="tg-x028" colspan="2">Características físicas</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Diâmetro equatorial</td>
+              <td class="tg-mk6l">4 879,4 km</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Área da superfície</td>
+              <td class="tg-mk6l">7,48×107 km²</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Volume</td>
+              <td class="tg-mk6l">6,083×1010 km³</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Massa</td>
+              <td class="tg-mk6l">3,3011×1023 kg</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Densidade média</td>
+              <td class="tg-mk6l">5,427 g/cm³</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Gravidade superficial</td>
+              <td class="tg-mk6l">3,7 m/s2</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Período de rotação</td>
+              <td class="tg-mk6l">58,646 dias (1 407,5) horas</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Velocidade de escape</td>
+              <td class="tg-mk6l">4,25 km/s</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Inclinação axial</td>
+              <td class="tg-mk6l">0,01º</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Albedo</td>
+              <td class="tg-mk6l">0,142 (geométrico)<br>0,068<br>(Bond)</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Temperatura</td>
+              <td class="tg-mk6l">média: 166,85 ºC<br>mínima: -183,15 ºC<br>máxima: 426,85 ºC</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Magnitude aparente</td>
+              <td class="tg-mk6l">−2,6 para 5,7</td>
+            </tr>
+            <tr>
+              <td class="tg-x028" colspan="2">Composição da atmosfera</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Pressão atmosférica</td>
+              <td class="tg-mk6l">0,5 nPa</td>
+            </tr>
+            <tr>
+              <td class="tg-u3q6">Potássio<br>Sódio<br>Oxigênio atômico<br>Argônio<br>Hélio<br>Oxigênio molecular<br>Nitrogênio<br><span style="text-decoration:none">Dióxido de carbono</span><br>Água</span><br>Hidrogênio</td>
+              <td class="tg-mk6l">31,7%<br>24,9%<br>9,5%<br>7,0%<br>5,9%<br>5,6%<br>5,2%<br>3,6%<br>3,4%<br>3,2%</td>
+            </tr>
+          </tbody>
+          </table>
+    </div>
+    <div id="venus">
+        <table class="tg" style="table-layout: fixed; width: 100%">
+        <colgroup>
+        <col style="width: 100%">
+        <col style="width: 100%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="tg-x028" colspan="2">Características orbitais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-u3q6">Semieixo maior</td>
+            <td class="tg-mk6l">108 208 930 km<br>0,723 332 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Periélio</td>
+            <td class="tg-mk6l">107 476 000 km<br>0,718 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Afélio</td>
+            <td class="tg-mk6l">108 942 000 km<br>0,728 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Excentricidade</td>
+            <td class="tg-mk6l">0,006772</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período orbital</td>
+            <td class="tg-mk6l">224,701 dias (0,615198) anos</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período sinódico</td>
+            <td class="tg-mk6l">583,92 dias (1,599) anos</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade orbital média</td>
+            <td class="tg-mk6l">35,02 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Inclinação</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Argumento do periastro</td>
+            <td class="tg-mk6l">54,85229 º</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Longitude do nó ascendente</td>
+            <td class="tg-mk6l">76,68069 º</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Número de satélites</td>
+            <td class="tg-mk6l">Nenhum</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Características físicas</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Diâmetro médio</td>
+            <td class="tg-mk6l">12 103,6 km</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Área da superfície</td>
+            <td class="tg-mk6l">4,60 ×108 km²</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Volume</td>
+            <td class="tg-mk6l">92,843 ×1010 km³</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Massa</td>
+            <td class="tg-mk6l">4,8685 ×1024 kg</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Densidade média</td>
+            <td class="tg-mk6l">5,243 g/cm³</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Gravidade superficial</td>
+            <td class="tg-mk6l">8,87 m/s2</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período de rotação</td>
+            <td class="tg-mk6l">-5 832,5 horas (-243,021) dias</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade de escape</td>
+            <td class="tg-mk6l">10,36 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Inclinação axial</td>
+            <td class="tg-mk6l">177,36 º</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Albedo</td>
+            <td class="tg-mk6l">0,67 (geométrico)<br>0,90<br>(Bond)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Temperatura</td>
+            <td class="tg-mk6l">média: 461 ºC</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Magnitude aparente</td>
+            <td class="tg-mk6l">-4,6</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Composição da atmosfera</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Pressão atmosférica</td>
+            <td class="tg-mk6l">9,2 MPa</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Dióxido de carbono<br>Nitrogênio<br>Dióxido de enxofre<br>Argônio<br>Vapor de água<br>Monóxido de carbono<br>Hélio<br>Neônio<br>Traços de Sulfeto de carbonila<br>Ácido clorídrico<br>Ácido fluorídrico</td>
+            <td class="tg-mk6l">96,5%<br>3,5%<br>0,015%<br>0,007%<br>0,002%<br>0,0017%<br>0,0012%<br>0,0007%</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div id="earth">
+        <table class="tg" style="table-layout: fixed; width: 100%">
+        <colgroup>
+        <col style="width: 100%">
+        <col style="width: 100%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="tg-x028" colspan="2">Características orbitais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-u3q6">Semieixo maior</td>
+            <td class="tg-mk6l">149 598 261 km<br>1,00000261 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Periélio</td>
+            <td class="tg-mk6l">147 098 290 km<br>0,98329134 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Afélio</td>
+            <td class="tg-mk6l">152 098 232 km<br>1,01671388 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Excentricidade</td>
+            <td class="tg-mk6l">0,01671123</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período orbital</td>
+            <td class="tg-mk6l">365,256363004 d<br>(1,000017421 a)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade orbital média</td>
+            <td class="tg-mk6l">107 200 km/h<br>29,78 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Inclinação</td>
+            <td class="tg-mk6l">7,155° ao equador do Sol<br>1,57869 ao plano invariável °</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Argumento do periastro</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Longitude do nó ascendente</td>
+            <td class="tg-mk6l">348,73936°</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6"><span style="font-weight:bold">Número de</span> satélites</td>
+            <td class="tg-mk6l">1 (Lua)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Características físicas</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Diâmetro equatorial</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Área da superfície</td>
+            <td class="tg-mk6l">510 072 000 km²</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Volume</td>
+            <td class="tg-mk6l">1,08321×1012 km³</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Massa</td>
+            <td class="tg-mk6l">5,9736×1024 kg</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Densidade média</td>
+            <td class="tg-mk6l">5,515 g/cm³</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Gravidade equatorial</td>
+            <td class="tg-mk6l">9,780327 m/s²<br>0,99732 g</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período de rotação</td>
+            <td class="tg-mk6l">0,99726968 d<br>23h 56m 4,100s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade de escape</td>
+            <td class="tg-mk6l">11,186 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Inclinação axial</td>
+            <td class="tg-mk6l">23°26'21",4119</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Albedo</td>
+            <td class="tg-mk6l">0,367<br>(geométrico)<br>0,306<br>(Bond)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Temperatura</td>
+            <td class="tg-mk6l">média: 14 ºC<br>mínima: -93,2 ºC<br>máxima: 57,8 ºC</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Composição da atmosfera</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Pressão atmosférica</td>
+            <td class="tg-mk6l">101,325 kPa ao nível do mar</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Nitrogênio<br>Oxigênio<br>Argônio<br>Dióxido de carbono<br>Vapor de água<br>(variável com o clima)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Pressão atmosférica</td>
+            <td class="tg-mk6l">9,2 MPa</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Dióxido de carbono<br>Nitrogênio<br>Dióxido de enxofre<br>Argônio<br>Vapor de água<br>Monóxido de carbono<br>Hélio<br>Neônio<br>Traços de Sulfeto de carbonila<br>Ácido clorídrico<br>Ácido fluorídrico</td>
+            <td class="tg-mk6l">96,5%<br>3,5%<br>0,015%<br>0,007%<br>0,002%<br>0,0017%<br>0,0012%<br>0,0007%</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div id="moon">
+        <table class="tg" style="table-layout: fixed; width: 100%">
+        <colgroup>
+        <col style="width: 100%">
+        <col style="width: 100%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="tg-x028" colspan="2">Características orbitais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-u3q6">Semieixo maior</td>
+            <td class="tg-mk6l">384 399 km (0,00257 UA)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Perigeu</td>
+            <td class="tg-mk6l">363 104 km<br>0,0024 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Apogeu</td>
+            <td class="tg-mk6l">405 696 km<br>0,0027 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Excentricidade</td>
+            <td class="tg-mk6l">0,0549</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período orbital</td>
+            <td class="tg-mk6l">27,321582 d (0,074802 a)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período sinódico</td>
+            <td class="tg-mk6l">29,530589 d (0,08085 a)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade orbital média</td>
+            <td class="tg-mk6l">1,022 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Inclinação</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Características físicas</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Diâmetro equatorial</td>
+            <td class="tg-mk6l">3474,8 km</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Área da superfície</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Volume</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Massa</td>
+            <td class="tg-mk6l">0,0123 Terras<br>7,349 x 1022 kg</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Densidade média</td>
+            <td class="tg-mk6l">3,34 g/cm³</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Gravidade equatorial</td>
+            <td class="tg-mk6l">0,1654 g</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período de rotação</td>
+            <td class="tg-mk6l">27 d 7 h 43 min (rotação síncrona)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade de escape</td>
+            <td class="tg-mk6l">2,38 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Albedo</td>
+            <td class="tg-mk6l">0,1054</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Temperatura</td>
+            <td class="tg-mk6l">média: -53,1 ºC<br>mínima: -173,1 ºC<br>máxima: 116,9 ºC</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Composição da atmosfera</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Pressão atmosférica</td>
+            <td class="tg-mk6l">1 µPa</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Hélio<br>Neônio<br>Hidrogênio<br>Argônio<br></td>
+            <td class="tg-mk6l">25%<br>25%<br>23%<br>20%</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Composição da atmosfera</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Pressão atmosférica</td>
+            <td class="tg-mk6l">101,325 kPa ao nível do mar</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Nitrogênio<br>Oxigênio<br>Argônio<br>Dióxido de carbono<br>Vapor de água<br>(variável com o clima)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Pressão atmosférica</td>
+            <td class="tg-mk6l">9,2 MPa</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Dióxido de carbono<br>Nitrogênio<br>Dióxido de enxofre<br>Argônio<br>Vapor de água<br>Monóxido de carbono<br>Hélio<br>Neônio<br>Traços de Sulfeto de carbonila<br>Ácido clorídrico<br>Ácido fluorídrico</td>
+            <td class="tg-mk6l">96,5%<br>3,5%<br>0,015%<br>0,007%<br>0,002%<br>0,0017%<br>0,0012%<br>0,0007%</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div id="mars">
+        <table class="tg">
+        <thead>
+          <tr>
+            <th class="tg-x028" colspan="2">Características orbitais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-u3q6">Semieixo maior</td>
+            <td class="tg-mk6l">227.939.100 km<br>1,523 679 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Periélio</td>
+            <td class="tg-mk6l">206.669.000 km<br>1,381 497 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Afélio</td>
+            <td class="tg-mk6l">249.209.300 km<br>1,665 861 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Excentricidade</td>
+            <td class="tg-mk6l">0,093 315</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período orbital</td>
+            <td class="tg-mk6l">686,971 dias<br>(1,8808 anos)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período sinódico</td>
+            <td class="tg-mk6l">779,96 dias<br>(2,135 anos)</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade orbital média</td>
+            <td class="tg-mk6l">24,077 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Inclinação</td>
+            <td class="tg-mk6l">Com a eclíptica: 1.850 °<br>Com o equador do Sol: 5.65 °</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Número de satélites</td>
+            <td class="tg-mk6l">2 (Fobos e Deimos)</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Características físicas</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Diâmetro equatorial</td>
+            <td class="tg-mk6l">6792,4 km</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Área da superfície</td>
+            <td class="tg-mk6l">144.798.500 km²</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Volume</td>
+            <td class="tg-mk6l">1,6318×1011 km³</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Massa</td>
+            <td class="tg-mk6l">6,4174×1023 kg</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Densidade média</td>
+            <td class="tg-mk6l">3,933 g/cm³</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Gravidade equatorial</td>
+            <td class="tg-mk6l">3,711 m/s² g</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período de rotação</td>
+            <td class="tg-mk6l">1,025 957 dias<br>24 h 37 min 22 s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade de escape</td>
+            <td class="tg-mk6l">5,03 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Albedo</td>
+            <td class="tg-mk6l">0,170</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Temperatura</td>
+            <td class="tg-mk6l">média: −63 ºC<br>mínima: −143 ºC<br>máxima: 35 ºC</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Composição da atmosfera</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Pressão atmosférica</td>
+            <td class="tg-mk6l">0,636 kPa</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Dióxido de Carbono<br>Argônio<br>Nitrogênio<br>Oxigênio<br>Monóxido de carbono<br>Outros elementos</td>
+            <td class="tg-mk6l">95,97%<br>1,93%<br>1,89%<br>0,146%<br>0,0557%<br><br>0,0083%</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div id="jupiter">
+        <table class="tg" style="table-layout: fixed; width: 100%">
+        <colgroup>
+        <col style="width: 100%">
+        <col style="width: 100%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="tg-x028" colspan="2">Características orbitais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-cycc">Semieixo maior</td>
+            <td class="tg-mk6l">778 547 200 km<br>5,204267 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Periélio</td>
+            <td class="tg-mk6l">740 573 600 km<br>4,950429 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Afélio</td>
+            <td class="tg-mk6l">816 520 800 km<br>5,458104 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Excentricidade</td>
+            <td class="tg-mk6l">0,048775</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Período orbital</td>
+            <td class="tg-mk6l">4 331,572 dias<br>11,85920 anos</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Período sinódico</td>
+            <td class="tg-mk6l">398,88 dias</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Velocidade orbital média</td>
+            <td class="tg-mk6l">13,07 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Inclinação</td>
+            <td class="tg-ipxp">Com a eclíptica: 1,305°<br>Com o equador solar: 6,09°<br>Com o plano invariável: 0,32 °</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Número de satélites</td>
+            <td class="tg-mk6l">79</td>
+          </tr>
+          <tr>
+            <td class="tg-5mi2" colspan="2">Características físicas</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Diâmetro equatorial</td>
+            <td class="tg-ipxp">142 984 ± 8 km</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Área da superfície</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Volume</td>
+            <td class="tg-mk6l">1 321,3 Terras<br>1,43128×1015 km³</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Massa</td>
+            <td class="tg-mk6l">317,8 Terras<br>1,8986×1027 kg</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Densidade média</td>
+            <td class="tg-mk6l">1,326 g/cm³</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Gravidade equatorial</td>
+            <td class="tg-mk6l">24,79 m/s²<br>2,528 g</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Período de rotação</td>
+            <td class="tg-mk6l">9,8 horas</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Velocidade de escape</td>
+            <td class="tg-mk6l">59,5 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Albedo</td>
+            <td class="tg-mk6l">0,343 (Bond)<br>0,52 (Geométrico)</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Temperatura</td>
+            <td class="tg-mk6l">média: 165 K / -108 ºC</td>
+          </tr>
+          <tr>
+            <td class="tg-5mi2" colspan="2">Composição da atmosfera</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Pressão atmosférica</td>
+            <td class="tg-mk6l">20-200 KPa</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Hidrogênio<br>Hélio<br>Metano<br>Amônia<br>Fósforo<br>Vapor de água</td>
+            <td class="tg-mk6l">89,8±2,0%<br>10,2±2,0%<br>0,3%<br>0,026%<br>0,0006%<br>0,25%[9]</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Magnitude aparente</td>
+            <td class="tg-mk6l">8,02 a 7,78</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Composição da atmosfera</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Composição</td>
+            <td class="tg-mk6l">80 ± 3.2% hidrogênio<br>19 ± 3.2% hélio<br>1.5 ± 0.5% metano<br>~0.019% deuterídio de hidrogênio<br>~0.00015% etano<br>Gelos:<br>amoníaco<br>água<br>hidrossulfeto de amônio<br>hidrato de metano</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Composição</td>
+            <td class="tg-mk6l">83 ± 3%<br>Hidrogênio (H2)<br>15 ± 3%<br>Hélio<br>2,3%<br>Metano<br><br>Gelos:<br><br><br>Amônia<br><br>Água<br><br>Hidrossulfeto de amônio (NH4SH)<br><br>Metano (CH4)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">83 ± 3%</td>
+            <td class="tg-mk6l">Hidrogênio (H2)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">15 ± 3%</td>
+            <td class="tg-mk6l">Hélio</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">2,3%</td>
+            <td class="tg-mk6l">Metano</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Gelos:</td>
+            <td class="tg-mk6l"></td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Amônia</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Água</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Hidrossulfeto de amônio (NH4SH)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Metano (CH4)</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div id="saturn">
+        <table class="tg" style="table-layout: fixed; width: 100%">
+        <colgroup>
+        <col style="width: 100%">
+        <col style="width: 100%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="tg-x028" colspan="2">Características orbitais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-cycc">Semieixo maior</td>
+            <td class="tg-mk6l">1 433 449 370 km<br>9,582 017 2 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Periélio</td>
+            <td class="tg-mk6l">1 353 572 956 km<br>9,048 076 35 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Afélio</td>
+            <td class="tg-mk6l">1 513 325 783 km<br>10,115 958 04 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Excentricidade</td>
+            <td class="tg-mk6l">0,055 723 219</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Período orbital</td>
+            <td class="tg-mk6l">10 759,22 dias<br>29,4571 anos</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Período sinódico</td>
+            <td class="tg-mk6l">378,09 dias</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Velocidade orbital média</td>
+            <td class="tg-mk6l">9,69 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Inclinação</td>
+            <td class="tg-ipxp">Eclíptica: 2,485 240 °<br>Equador solar: 5,51 °<br>Plano invariável: 0,93 °</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Longitude do nó ascendente</td>
+            <td class="tg-mk6l">113,642 811</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc" colspan="2">Número de satélites</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Características físicas</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Diâmetro equatorial</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Área da superfície</td>
+            <td class="tg-mk6l">4.27 × 1010 km²</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Volume</td>
+            <td class="tg-mk6l">8,2713 × 1014 km³</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Massa</td>
+            <td class="tg-mk6l">5,6846 × 1026 kg</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Densidade média</td>
+            <td class="tg-mk6l">0,687 g/cm³</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Gravidade equatorial</td>
+            <td class="tg-mk6l">10,44 m/s²<br>1,065 g</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Período de rotação</td>
+            <td class="tg-mk6l">10h 34min</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Velocidade de escape</td>
+            <td class="tg-mk6l">35,5 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Inclinação axial</td>
+            <td class="tg-mk6l">26,73°</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc" colspan="2">Albedo</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Temperatura</td>
+            <td class="tg-mk6l">média: -139 ºC</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Magnitude aparente</td>
+            <td class="tg-mk6l">+1,47 até −0,24</td>
+          </tr>
+          <tr>
+            <td class="tg-5mi2" colspan="2">Composição da atmosfera</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6" colspan="2">Composição</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Composição</td>
+            <td class="tg-mk6l">80 ± 3.2% hidrogênio<br>19 ± 3.2% hélio<br>1.5 ± 0.5% metano<br>~0.019% deuterídio de hidrogênio<br>~0.00015% etano<br>Gelos:<br>amoníaco<br>água<br>hidrossulfeto de amônio<br>hidrato de metano</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Composição</td>
+            <td class="tg-mk6l">83 ± 3%<br>Hidrogênio (H2)<br>15 ± 3%<br>Hélio<br>2,3%<br>Metano<br><br>Gelos:<br><br><br>Amônia<br><br>Água<br><br>Hidrossulfeto de amônio (NH4SH)<br><br>Metano (CH4)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">83 ± 3%</td>
+            <td class="tg-mk6l">Hidrogênio (H2)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">15 ± 3%</td>
+            <td class="tg-mk6l">Hélio</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">2,3%</td>
+            <td class="tg-mk6l">Metano</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Gelos:</td>
+            <td class="tg-mk6l"></td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Amônia</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Água</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Hidrossulfeto de amônio (NH4SH)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Metano (CH4)</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div id="uranus">
+        <table class="tg" style="table-layout: fixed; width: 100%">
+        <colgroup>
+        <col style="width: 100%">
+        <col style="width: 100%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="tg-x028" colspan="2">Características orbitais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-u3q6">Semieixo maior</td>
+            <td class="tg-mk6l">2 876 679 082 km<br>19,22941195 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Periélio</td>
+            <td class="tg-mk6l">2 748 938 461 km<br>18,37551863 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Afélio</td>
+            <td class="tg-mk6l">3 004 419 704 km<br>20,08330526 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Excentricidade</td>
+            <td class="tg-mk6l">0,044405586</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período orbital</td>
+            <td class="tg-mk6l">30799,095 dias<br>84,323326 anos</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período sinódico</td>
+            <td class="tg-mk6l">369,66 dias</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade orbital média</td>
+            <td class="tg-mk6l">6,81 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Inclinação</td>
+            <td class="tg-mk6l">Eclíptica: 0,772556°<br>Equador solar: 6,48°<br>Plano invariável: 1,02 °</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Argumento do periastro</td>
+            <td class="tg-mk6l">96,541318°</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Longitude do nó ascendente</td>
+            <td class="tg-mk6l">73,989821°</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Número de satélites</td>
+            <td class="tg-mk6l">27</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Características físicas</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Diâmetro equatorial</td>
+            <td class="tg-mk6l">4,007 Terras<br>51 118 ± 8[4] km</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Área da superfície</td>
+            <td class="tg-mk6l">15,91 Terras<br>8,115 6×109[5] km²</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Volume</td>
+            <td class="tg-mk6l">63,086 Terra<br>6,833×1013[2] km³</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Massa</td>
+            <td class="tg-mk6l">14,536 Terras<br>(8,6810 ± 0,0013)×1025[6] kg</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Densidade média</td>
+            <td class="tg-mk6l">1,27[2] g/cm³</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Gravidade equatorial</td>
+            <td class="tg-mk6l">8,69 m/s²[2]<br>0,886 g</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Período de rotação</td>
+            <td class="tg-mk6l">−0,718 33 dias<br>17 h 14 min 24 s[4]</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Velocidade de escape</td>
+            <td class="tg-mk6l">21,3[2] km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Inclinação axial</td>
+            <td class="tg-mk6l">97,77°[4]</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Albedo</td>
+            <td class="tg-mk6l">0,300 (Bond)<br>0,51 (geométrico)[2]</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Temperatura</td>
+            <td class="tg-mk6l">média: -220 ºC<br>mínima: -224 ºC<br>máxima: -216 ºC</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Magnitude aparente</td>
+            <td class="tg-mk6l">5,9[7] a 5,32[2]</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Composição da atmosfera[8][9][10]</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Pressão atmosférica</td>
+            <td class="tg-mk6l">1,2 kPa</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Composição</td>
+            <td class="tg-mk6l">83 ± 3%<br>Hidrogênio (H2)<br>15 ± 3%<br>Hélio<br>2,3%<br>Metano<br><br>Gelos:<br><br><br>Amônia<br><br>Água<br><br>Hidrossulfeto de amônio (NH4SH)<br><br>Metano (CH4)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">83 ± 3%</td>
+            <td class="tg-mk6l">Hidrogênio (H2)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">15 ± 3%</td>
+            <td class="tg-mk6l">Hélio</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">2,3%</td>
+            <td class="tg-mk6l">Metano</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l"></td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Gelos:</td>
+            <td class="tg-mk6l"></td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Amônia</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Água</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Hidrossulfeto de amônio (NH4SH)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Metano (CH4)</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div id="neptune">
+        <table class="tg" style="table-layout: fixed; width: 100%">
+        <colgroup>
+        <col style="width: 100%">
+        <col style="width: 100%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="tg-x028" colspan="2">Características orbitais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-cycc">Semieixo maior</td>
+            <td class="tg-mk6l">4 503 443 661km<br>30,0 366 151 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Periélio</td>
+            <td class="tg-mk6l">4 452 940 833 km<br>29,76 607 095 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Afélio</td>
+            <td class="tg-mk6l">4 553 946 490 km<br>30,44 125 206 UA</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Excentricidade</td>
+            <td class="tg-mk6l">0,011 214 269</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Período orbital</td>
+            <td class="tg-mk6l">60 190,03 dias (164,79 anos)</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Período sinódico</td>
+            <td class="tg-mk6l">367,5 dias[1]</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Velocidade orbital média</td>
+            <td class="tg-mk6l">5,43 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Inclinação</td>
+            <td class="tg-ipxp">Eclíptica: 1,767 975°<br>Equador solar: 6,43°<br>Plano invariável: 0,72 °</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Argumento do periastro</td>
+            <td class="tg-mk6l">265,646 853°</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Longitude do nó ascendente</td>
+            <td class="tg-mk6l">131,794 310°</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Número de satélites</td>
+            <td class="tg-ipxp">14</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Características físicas</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Diâmetro equatorial</td>
+            <td class="tg-mk6l">49 528 km</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Área da superfície</td>
+            <td class="tg-mk6l">7,6183×109 km²</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Volume</td>
+            <td class="tg-mk6l">6,254×1013 km³</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Massa</td>
+            <td class="tg-mk6l">1,0243×1026 kg</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Densidade média</td>
+            <td class="tg-mk6l">1,638 g/cm³</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Gravidade equatorial</td>
+            <td class="tg-mk6l">11,15 m/s²<br>1,14 g</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Período de rotação</td>
+            <td class="tg-mk6l">0,6713 dia<br>16 h 6 min 36 s</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Velocidade de escape</td>
+            <td class="tg-mk6l">23,5 km/s</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Inclinação axial</td>
+            <td class="tg-mk6l">28,32°</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Albedo</td>
+            <td class="tg-mk6l">0,290 (Bond)<br>0,41 (geom.)</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Temperatura</td>
+            <td class="tg-mk6l">média: −223,15 ºC<br>mínima: −235 ºC</td>
+          </tr>
+          <tr>
+            <td class="tg-cycc">Magnitude aparente</td>
+            <td class="tg-mk6l">8,02 a 7,78</td>
+          </tr>
+          <tr>
+            <td class="tg-x028" colspan="2">Composição da atmosfera</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Composição</td>
+            <td class="tg-mk6l">80 ± 3.2% hidrogênio<br>19 ± 3.2% hélio<br>1.5 ± 0.5% metano<br>~0.019% deuterídio de hidrogênio<br>~0.00015% etano<br>Gelos:<br>amoníaco<br>água<br>hidrossulfeto de amônio<br>hidrato de metano</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Composição</td>
+            <td class="tg-mk6l">83 ± 3%<br>Hidrogênio (H2)<br>15 ± 3%<br>Hélio<br>2,3%<br>Metano<br><br>Gelos:<br><br><br>Amônia<br><br>Água<br><br>Hidrossulfeto de amônio (NH4SH)<br><br>Metano (CH4)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">83 ± 3%</td>
+            <td class="tg-mk6l">Hidrogênio (H2)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">15 ± 3%</td>
+            <td class="tg-mk6l">Hélio</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l">2,3%</td>
+            <td class="tg-mk6l">Metano</td>
+          </tr>
+          <tr>
+            <td class="tg-u3q6">Gelos:</td>
+            <td class="tg-mk6l"></td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Amônia</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Água</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Hidrossulfeto de amônio (NH4SH)</td>
+          </tr>
+          <tr>
+            <td class="tg-mk6l"></td>
+            <td class="tg-mk6l">Metano (CH4)</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
+    <script>
+ let b = document.getElementById('button2')
+ let cx = document.getElementById('infoi')
+
+ b.addEventListener('click', ()=>{
+  cx.className = "infohidden"
+ })
+    </script>
+  </body>
+</html>

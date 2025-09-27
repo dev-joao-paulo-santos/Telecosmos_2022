@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="background"></canvas>
+    <div class="content">
+        <h1>Vênus</h1>
+        <br><br><br>
+        <p>Vênus é o segundo planeta mais próximo do Sol e o mais próximo da Terra. É considerado um planeta gêmeo da
+            Terra, por causa de sua massa e de seu diâmetro de 12104 km, que se assemelham à do nosso planeta natal.
+            Porém, diferente daqui, não é possível encontrar forma alguma de vida em Vênus, porque ele é o planeta mais
+            quente do Sistema Solar.</p>
+        <p>A alta temperatura de quase 480°C de sua superfície se dá por conta da elevada quantidade de gás carbônico
+            (ou dióxido de carbono) na atmosfera, deixando-a muito compacta. Isso resulta em uma intensificação
+            expressiva do efeito estufa, transformando esse planeta em uma "panela de pressão", onde o calor resultante
+            dos raios solares fica retido na superfície, fazendo com que o planeta possua essa temperatura e tenha uma
+            pressão atmosférica de cerca de 92 vezes a da Terra</p>
+        <p>Por refletir muito a luz solar, é o corpo celeste que mais brilha no céu durante a noite, depois da Lua,
+            podendo ser visto a olho nu. Sua rotação é diferente de todos os outros planetas, pois é realizada de leste
+            para oeste, além de ser a mais lenta, equivalendo a 243 dias terrestres, porém a sua velocidade de
+            translação é um pouco mais rápida, equivalendo a 225 dias terrestres para dar uma volta em torno do Sol.</p>
+    </div>
+
+    <style>
+        * {
+            font-family: 'Century Gothic';
+            color: aliceblue;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 50vw;
+        }
+    </style>
+
+
+
+    <script type="importmap">
+        { "imports": {
+            "three": "./js/three.module.js",
+            "GLTFLoader": "./js/GLTFLoader.js",
+            "OrbitControls": "./js/OrbitControls.js"
+
+        }}
+    </script>
+    <script type="module">
+        import * as THREE from 'three'
+        import { OrbitControls } from 'OrbitControls'
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: false, canvas: document.querySelector('#background') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio)
+        //document.body.appendChild( renderer.domElement );
+
+        const txloader = new THREE.TextureLoader()
+
+        const normal = txloader.load('./venus/high/normal.jpg')
+        const diffuse = txloader.load('./venus/high/diffuse.jpg')
+        //const ao = txloader.load('./venus/high/diff.jpg')
+
+        const geometry = new THREE.SphereGeometry(1, 128, 128);
+        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, map: diffuse, /*normalMap: normal,*/ side: THREE.DoubleSide/*, displacementMap: ao, displacementScale: 0.03*/ });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+
+        for (let xis = -18; xis < 18; xis++) {
+            for (let yps = -8; yps < 8; yps++) {
+                for (let zs = -8; zs < -1; zs++) {
+                    const star = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 0.02), new THREE.MeshBasicMaterial({ color: 0xffffff, map: new THREE.TextureLoader().load('./glow.png'), transparent: true }))
+                    star.position.set(Math.random() + xis * 1.2, Math.random() + yps * 1.2, Math.random() + zs * 1.2)
+                    scene.add(star)
+                }
+            }
+        }
+
+        //const controls = new OrbitControls(camera, renderer.domElement)
+        //controls.update()
+
+
+
+        const light = new THREE.PointLight(0xffffff, 1, 100)
+        scene.add(light)
+        light.position.z = 6
+        light.position.x = 4
+
+
+        camera.position.set(-1.2, 0, 3.6);
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            //cube.rotation.x += 0.01;
+            cube.rotation.y += 0.001;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saturno</title>
+</head>
+
+<body>
+    <canvas id="background"></canvas>
+    <div class="content">
+        <h1>Saturno</h1>
+        <br><br><br>
+        <p>
+            Saturno é o segundo planeta gasoso na ordem de distância do Sol e o segundo maior planeta do Sistema Solar.
+            Também é o planeta que realiza seu movimento de rotação mais rapidamente, demorando cerca de 10 horas e 39
+            minutos para completá-lo, enquanto seu movimento de translação leva quase 30 anos para ser completado! Seu
+            diâmetro é de 116460 quilômetros, ou seja, quase nove vezes o diâmetro da Terra! É um planeta muito
+            conhecido por causa de seus anéis, que são os mais extensos e brilhantes entre todos os planetas do Sistema Solar. São
+            cerca de 7 anéis principais com espaços entre eles, onde cada um deles orbita em uma velocidade diferente.
+        </p>
+        <p>
+            A atmosfera de Saturno é composta por 97% de hidrogênio, 0.05% de metano e 3% de gás hélio. A composição de
+            sua superfície é basicamente de hidrogênio, o que faz com que a densidade do planeta seja menor que a da
+            água. Em sua superfície, também podemos encontrar movimentação do ar, que pode alcançar a impressionante
+            velocidade de 1800 km/h!
+        </p>
+        <p>
+            Luas são o que não faltam em Saturno, já que ele é considerado o planeta que mais possui satélites naturais
+            em todo o Sistema Solar atualmente, com cerca de 82 se movendo em sua órbita, onde 17 dessas luas possuem
+            movimento de órbita retrógrado, ou seja, eles giram no sentido contrário ao do planeta. Entre as maiores
+            luas e mais conhecidas são: Titã, Encélado, Jápetu, Reia e Tétis.
+        </p>
+    </div>
+
+    <style>
+        * {
+            font-family: 'Century Gothic';
+            color: aliceblue;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 50vw;
+        }
+    </style>
+
+
+
+    <script type="importmap">
+        { "imports": {
+            "three": "./js/three.module.js",
+            "GLTFLoader": "./js/GLTFLoader.js",
+            "OrbitControls": "./js/OrbitControls.js"
+
+        }}
+    </script>
+    <script type="module">
+        import * as THREE from 'three'
+        //import {OrbitControls} from 'OrbitControls'
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector('#background') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio)
+        //document.body.appendChild( renderer.domElement );
+
+        const txloader = new THREE.TextureLoader()
+
+
+        const diffuse = txloader.load('./jupiter/low/diff.jpg')
+
+
+        const sphere = new THREE.SphereGeometry(1, 128, 128);
+
+        // saturno
+        const albedoSaturn = new THREE.TextureLoader().load('./saturn/low/2k_saturn.jpg');
+        const materialSaturn = new THREE.MeshStandardMaterial({
+            map: albedoSaturn
+        });
+        var saturn = new THREE.Mesh(sphere, materialSaturn)
+        saturn.castShadow = true;
+        scene.add(saturn);
+
+        // anéis de saturno
+        const texture = new THREE.TextureLoader().load(
+            "https://i.postimg.cc/zz7Gr430/saturn-rings-top.png"
+        );
+        const geometryr = new THREE.RingBufferGeometry(3, 5, 86);
+        var pos = geometryr.attributes.position;
+        var v3 = new THREE.Vector3();
+        for (let i = 0; i < pos.count; i++) {
+            v3.fromBufferAttribute(pos, i);
+            geometryr.attributes.uv.setXY(i, v3.length() < 4 ? 0 : 1, 1);
+        }
+        // adjustRingGeometry(geometry);
+
+        const material = new THREE.MeshBasicMaterial({
+            map: texture,
+            color: 0xffffff,
+            side: THREE.DoubleSide,
+            transparent: true
+        });
+        const saturnRing = new THREE.Mesh(geometryr, material);
+        saturnRing.rotation.x = Math.PI / 2 + 0.1;
+        saturnRing.scale.set(0.5, 0.5, 0.5);
+        saturnRing.receiveShadow = true;
+        saturn.add(saturnRing);
+
+
+        for (let xis = -18; xis < 18; xis++) {
+            for (let yps = -8; yps < 8; yps++) {
+                for (let zs = -8; zs < -1; zs++) {
+                    const star = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 0.02), new THREE.MeshBasicMaterial({ color: 0xffffff, map: new THREE.TextureLoader().load('./glow.png'), transparent: true }))
+                    star.position.set(Math.random() + xis * 1.2, Math.random() + yps * 1.2, Math.random() + zs * 1.2)
+                    scene.add(star)
+                }
+            }
+        }
+
+
+
+
+        const light = new THREE.PointLight(0xffffff, 1, 100)
+        scene.add(light)
+        light.position.z = 6
+        light.position.x = 5
+
+
+        camera.position.set(-2.5, 0.2, 6.6);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            saturn.rotation.y += 0.01
+
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>

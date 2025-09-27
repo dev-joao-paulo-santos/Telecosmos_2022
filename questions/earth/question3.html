@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="./bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="./jquery.js"></script>
+    <script src="./main.js"></script>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div id="cronometer"></div>
+        <div class="row">
+
+            <div class="questao">
+                <form method="post" id="resposta">
+                    <div class="enunciado">Por que Marte parece vermelho? </div>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="a" value="a">
+                        <label for="a">A) Por causa da atmosfera da terra, que reflete a cor vermelha do planeta.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="b" value="b">
+                        <label for="b">B) Por causa de inúmeras tempestades de lava e erupções vulcânicas.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="c" value="c">
+                        <label for="c">C) Por causa de um pigmento natural que compõe seu núcleo.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="d" value="d"  data-resposta="true">
+                        <label for="d">D) Po causa do óxido de ferro espalhado em sua superfície.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="e" value="e">
+                        <label for="e">E) Por causa do intenso efeito estufa, que é muito parecido com o de Vênus.</label>
+                    </p>
+                    <input type="submit" value="Respondi!" name="validar" id="validar">
+                    <input type="button" onclick="location.href='../index.html'" value="Voltar" name="proximo">
+
+                   
+               
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

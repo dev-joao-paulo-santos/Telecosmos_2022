@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="./bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="./jquery.js"></script>
+    <script src="./question1.js"></script>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div id="cronometer"></div>
+        <div class="row">
+
+            <div class="questao">
+                <form method="post" id="resposta">
+                    <div class="enunciado">Sobre a lua, é correto afirmar:</div>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="a" value="a" data-resposta="true">
+                        <label for="a">A) O tamanho da Lua é de cerca de 1/3 em relação à Terra, com 3474,2 km de diâmetro</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="b" value="b">
+                        <label for="b">B) O tamanho da Lua é de cerca de 2/3 em relação à Terra, com 4250 km de diâmetro</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="c" value="c" data-resposta="true">
+                        <label for="c">C) A lua possui 5 fases: Minguante, Crescente, Cheia, Nova e Azul.</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="d" value="d">
+                        <label for="d">D) A lua é um portal para a galáxia Andrômeda</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="answer" class="alternative" id="e" value="e">
+                        <label for="e">E) O efeito dos raios solares faz com que a lua assuma a função de uma lente gigantesca.</label>
+                    </p>
+                    <input type="submit" value="Respondi!" name="validar" id="validar">
+                    <input type="button" onclick="location.href='../index.html'" value="Voltar" name="proximo">
+
+                   
+                  
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

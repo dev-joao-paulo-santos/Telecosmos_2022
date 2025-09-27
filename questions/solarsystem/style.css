@@ -1,0 +1,101 @@
+*{
+
+    font-family: 'Century Gothic';
+    
+    }
+    body {
+        background: linear-gradient(to right, #0096FF, aliceblue);
+    }
+    
+    #cronometer {
+        width: 30px;
+        height: 30px;
+        background-color: blue;
+        color: antiquewhite;
+        display: flex;
+        font-size: 38px;
+        border-radius: 50px;
+        align-items: center;
+        justify-content: center;
+        margin-left: 84vw;
+        margin-top: 50px;
+        padding: 30px 30px 30px 30px;
+        border-radius: 30px;    }
+    #cronometerhidden{
+        visibility: hidden;
+    }
+    
+    .row {
+        margin: 0 auto;
+    }
+    .enunciado{
+        padding-bottom: 30px;
+    }
+    
+    .resultado-right {
+        background: linear-gradient(to right, green, rgb(120, 255, 120));
+        border-radius: 10px;
+        padding: 5px;
+        color: white;
+        transition-duration: 1s;
+    }
+    
+    .resultado-wrong {
+        background: linear-gradient(to right, red, salmon);
+        border-radius: 10px;
+        padding: 5px;
+        color:aliceblue;
+        transition-duration: 1s;
+    }
+    
+    input[type="submit"] {
+        cursor: pointer;
+        padding: 16px;
+        border: none;
+        transition-duration: 1s;
+        border-radius: 52px;
+        background: white;
+        color: black;
+        font-weight: bold;
+        background: transparent;
+    
+    }
+    
+    input[type="submit"]:hover {
+    background-color: springgreen;
+    
+    }
+    
+    input[type="button"] {
+        cursor: pointer;
+        padding: 16px;
+        border: none;
+        transition-duration: 1s;
+        border-radius: 52px;
+     
+        font-weight: bold;
+        background: transparent;
+    
+    }
+    
+    input[type="button"]:hover {
+    background-color: rgb(245, 26, 26);
+    
+    }
+    
+    
+    .questao{
+        font-size: 20px;
+        width: 1000px;
+        height: 500px;
+        padding-left: 5%;
+        padding-top: 3%;
+    }
+    
+    button {
+        text-decoration: none;
+        color: black;
+        border: none;
+    
+        width: 30px;
+    }

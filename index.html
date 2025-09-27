@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <link href="./icon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="./js/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <title>Telecosmos</title>
+</head>
+
+
+<body class="overflow-hidden">
+
+    <div  style="background:url(https://loading.io/asset/737898)">
+        <img src="your-icon-url">
+    </div>
+
+    <!-- https://loading.io/asset/737898 -->
+
+    <canvas id="scenecanvas" class="fixed top-0 right-0"></canvas>
+    <main>
+        <div class="initialletters h-screen flex flex-col align-center justify-center my-auto ml-24 text-md">
+            <h1 class="text-sky-300 text-8xl mb-24 font-bold animate__animated animate__slideInDown">TELECOSMOS</h1>
+
+
+            <button class="bg-transparent text-white text-3xl mb-5 fakelink hover:animate-pulse"
+                onclick="location.href='./d32/index.html'">Veja o Sistema Solar</button>
+            <br>
+
+            <button class="bg-transparent text-white text-3xl mb-5 fakelink hover:animate-pulse"
+                onclick="location.href='./information/index.html'">Veja informações sobre o Sistema Solar</button>
+            <br>
+
+            <button id="create" class="bg-transparent text-white text-3xl mb-5 fakelink hover:animate-pulse"
+                onclick="apareca()">Insira seus dados</button>
+        </div>
+
+        <br>
+
+        <div id="sidebar" class="bg-sky-950">
+            <div id="btn-sidebar" class="toggle-btn" onclick="showsidebar()">
+                <span id="arrow" class="material-icons">arrow_forward</span>
+            </div>
+
+            <ul class="text-sky-200 list-none ml-0 no-underline">
+                <br>
+                <li><a class="worklink ml-5 no-underline" href="./aboutus.html"> Os desenvolvedores</a></li>
+                <br>
+                <li><a class="worklink ml-5 no-underline" href="./ROVER/index.html"> Rover em marte</a></li>
+                <br>
+                <li><a class="worklink ml-5 no-underline" href="./gravity/index.html">Mapas de gravidade</a></li>
+                <br>
+                <li><a class="worklink ml-5 no-underline" href="./questions/index.html">Provinha</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <form id="formularioderegistro">
+        <h3 class="text-3xl mb-4 scale-125 text-white font-black text-center">Registre-se</h3>
+        <input type="text" name="" id="name" placeholder="Digite seu nome:">
+        <input type="email" name="" id="email" placeholder="Digite seu email:">
+        <input type="password" name="" id="password" placeholder="Digite sua senha:">
+        <br>
+
+        <button type="button" id="insert">Registrar</button>
+
+
+        <button type="button" id="botaoocultar" onclick="desapareca()">Ocultar</button>
+    </form>
+
+    <script src="./js/index.js" type="module"></script>
+    <script src="./js/landing.js"></script>
+</body>
+
+</html>

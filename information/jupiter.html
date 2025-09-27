@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="background"></canvas>
+    <div class="content">
+        <h1> Júpiter</h1>
+        <br><br><br>
+        <p>
+            Júpiter é o quinto planeta do Sistema Solar, distando do Sol a uma distância de 778,33 quilômetros. É também
+            o maior dentre os planetas que orbitam nossa estrela, com um diâmetro de 139820 km. Isso significa que
+            caberiam dentro dele cerca de 2 mil objetos com o mesmo volumoe da Terra! O planeta chega a ser tão grande
+            que a sua identificação e
+            observação sem o uso de telescópio torna-se possível, ainda que ele esteja, no mínimo, a uma distância de
+            590 milhões de quilômetros daqui. É o primeiro planeta gasoso, na ordem de afastamento do Sol, a possuir
+            pelo menos um anel em sua órbita. Foi descoberto um anel, com menos de 1 km de espessura e 6.5 km de
+            largura.
+        </p>
+        <p>
+            A atmosfera de Júpiter é basicamente composta por 2 gases: Hidrogênio, que ocupa 86% da atmosfera, e Hélio,
+            ocupando 14%. E o planeta sofre com intensas tempestades, com ventos de até 600 km/h, cuja duração pode
+            variar de horas para séculos. Isso explica a presença de nuvens coloridas aparecendo em sua superfície. Um
+            grande exemplo de tempestade duradoura é a Grande Mancha Vermelha, localizada no hemisfério sul de Júpiter.
+            É um poderoso furacão que possui o quase o dobro do tamanho da Terra, e possui registros de 358 anos atrás!
+            O planeta conta com cerca de 79 satélites naturais confirmados em sua órbita, devido ao seu gigantesco e
+            poderoso campo gravitacional. Suas luas mais conhecidas são Europa, Calisto, Io e Ganímedes, sendo essa última a maior delas.
+        </p>
+    </div>
+
+    <style>
+        * {
+            font-family: 'Century Gothic';
+            color: aliceblue;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 50vw;
+        }
+    </style>
+
+
+
+    <script type="importmap">
+        { "imports": {
+            "three": "./js/three.module.js",
+            "GLTFLoader": "./js/GLTFLoader.js",
+            "OrbitControls": "./js/OrbitControls.js"
+
+        }}
+    </script>
+    <script type="module">
+        import * as THREE from 'three'
+        //import {OrbitControls} from 'OrbitControls'
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector('#background') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio)
+        //document.body.appendChild( renderer.domElement );
+
+        const txloader = new THREE.TextureLoader()
+
+
+        const diffuse = txloader.load('./jupiter/low/diff.jpg')
+
+
+        const geometry = new THREE.SphereGeometry(1, 128, 128);
+        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, map: diffuse });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+
+        for (let xis = -18; xis < 18; xis++) {
+            for (let yps = -8; yps < 8; yps++) {
+                for (let zs = -8; zs < -1; zs++) {
+                    const star = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 0.02), new THREE.MeshBasicMaterial({ color: 0xffffff, map: new THREE.TextureLoader().load('./glow.png'), transparent: true }))
+                    star.position.set(Math.random() + xis * 1.2, Math.random() + yps * 1.2, Math.random() + zs * 1.2)
+                    scene.add(star)
+                }
+            }
+        }
+
+
+
+
+        const light = new THREE.PointLight(0xffffff, 1, 100)
+        scene.add(light)
+        light.position.z = 6
+        light.position.x = 5
+
+
+        camera.position.set(-1.2, 0, 3.6);
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            //cube.rotation.x += 0.01;
+            cube.rotation.y += 0.001;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>

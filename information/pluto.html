@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plutão</title>
+</head>
+
+<body>
+    <canvas id="background"></canvas>
+    <div class="content">
+        <h1>Plutão</h1>
+        <br><br><br>
+        <p>
+            Plutão é o planeta-anão mais conhecido do Sistema Solar. Até 2006, ele ainda
+            estava na categoria de planeta, porém, por ser pequeno demais para um planeta comum e não ser capaz de
+            conduzir sua própria órbita, dependendo de outros corpos celestes para influenciá-lo nesse movimento, foi
+            rebaixado para a categoria de planeta-anão. Dentro dessa categoria estão Ceres, Haumea, Makemake e Éris.
+            Plutão está localizado em uma região conhecida como Cinturão de
+            Kuiper, que é
+            um lugar que abriga milhões de corpos celestes, como detritos de planetas, poeira e asteróides. É uma região
+            cuja distância do Sol pode variar de 4.6 bilhões a 7.5 bilhões de quilômetros, mas a distância de Plutão ao
+            Sol é de cerca de 5.9 bilhões de quilômetros, o que faz com que sua temperatura de superfície seja muito
+            baixa, em torno dos -220°C, sendo chamado de Anão Gelado.
+        </p>
+        <p>
+            O movimento de rotação de Plutão, além de ser retrógrada, equivale a um período de 153 horas para se
+            completar, enquanto seu movimento de translação em torno do Sol demora cerca de 248 anos, devido à elipse
+            gigantesca de sua órbita ao redor da estrela. Ele também possui satélites naturais, com 5 luas conhecidas,
+            sendo a maior delas chamada de Caronte, com quase metade do diâmetro do planeta-anão.
+        </p>
+
+    </div>
+
+    <style>
+        * {
+            font-family: 'Century Gothic';
+            color: aliceblue;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 50vw;
+        }
+    </style>
+
+
+
+    <script type="importmap">
+        { "imports": {
+            "three": "./js/three.module.js",
+            "GLTFLoader": "./js/GLTFLoader.js",
+            "OrbitControls": "./js/OrbitControls.js"
+
+        }}
+    </script>
+    <script type="module">
+        import * as THREE from 'three'
+        // import {OrbitControls} from 'OrbitControls'
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector('#background') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio)
+        //document.body.appendChild( renderer.domElement );
+
+        const txloader = new THREE.TextureLoader()
+
+
+        const diffuse = txloader.load('./pluto/low/pluto_texture.jpg')
+
+
+        const geometry = new THREE.SphereGeometry(1, 128, 128);
+        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, map: diffuse });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+
+
+
+
+
+
+
+
+        for (let xis = -18; xis < 18; xis++) {
+            for (let yps = -8; yps < 8; yps++) {
+                for (let zs = -8; zs < -1; zs++) {
+                    const star = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 0.02), new THREE.MeshBasicMaterial({ color: 0xffffff, map: new THREE.TextureLoader().load('./glow.png'), transparent: true }))
+                    star.position.set(Math.random() + xis * 1.2, Math.random() + yps * 1.2, Math.random() + zs * 1.2)
+                    scene.add(star)
+                }
+            }
+        }
+
+
+
+
+        const light = new THREE.PointLight(0xffffff, 1, 100)
+        scene.add(light)
+        light.position.z = 6
+        light.position.x = 4
+
+
+        camera.position.set(-1.2, 0, 3.6);
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            //cube.rotation.x += 0.01;
+            cube.rotation.y += 0.001;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>Netuno
